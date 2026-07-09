@@ -53,12 +53,12 @@ class JellyfinRepository(private val context: Context) {
     ): Result<Boolean> = withContext(Dispatchers.IO) {
         try {
             ensureApiServiceInitialized(serverUrl)
-
+            println("TEST BEFORE REQUEST")
             val request = AuthenticationRequest(
-                Username = username,
-                Password = password,
-                RememberMe = true
+                username = username,
+                password = password
             )
+            println("Request HERE: $request")
 
             val response = apiService!!.authenticate(request)
 
@@ -88,9 +88,8 @@ class JellyfinRepository(private val context: Context) {
             ensureApiServiceInitialized(stored.serverUrl)
 
             val request = AuthenticationRequest(
-                Username = stored.username,
-                Password = stored.password,
-                RememberMe = true
+                username = stored.username,
+                password = stored.password
             )
 
             val response = apiService!!.authenticate(request)
@@ -237,13 +236,16 @@ private class AuthInterceptor(private val authManager: AuthManager) : Intercepto
 
         val requestBuilder = original.newBuilder()
 
+        // Add Emby authorization header
+        requestBuilder.header(
+            "X-Emby-Authorization",
+            "MediaBrowser Client=\"Nova\", Device=\"FireTV\", DeviceId=\"${java.util.UUID.randomUUID()}\", Version=\"1.0\""
+        )
+
         // Add auth token if available
         authManager.getAccessToken()?.let {
             requestBuilder.header("Authorization", "MediaBrowser Token=\"$it\"")
         }
-
-        // Add required Jellyfin headers
-        requestBuilder.header("X-MediaBrowser-Token", authManager.getAccessToken() ?: "")
 
         return chain.proceed(requestBuilder.build())
     }

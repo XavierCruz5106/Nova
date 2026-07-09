@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    kotlin("plugin.serialization") version "1.9.20"
 }
 
 android {
@@ -23,6 +24,10 @@ android {
             optimization {
                 enable = false
             }
+            buildConfigField("String", "JELLYSEER_API_KEY", "\"${project.findProperty("jellyseer.api.key") ?: ""}\"")
+        }
+        debug {
+            buildConfigField("String", "JELLYSEER_API_KEY", "\"${project.findProperty("jellyseer.api.key") ?: ""}\"")
         }
     }
 

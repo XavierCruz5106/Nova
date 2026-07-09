@@ -1,16 +1,19 @@
+@file:OptIn(InternalSerializationApi::class)
+
 package com.example.nova.data
 
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 // Authentication
 @Serializable
 data class AuthenticationRequest(
-    val Username: String,
-    val Password: String,
-    val RememberMe: Boolean = true
+    @SerialName("username")
+    val username: String,
+    @SerialName("pw")
+    val password: String
 )
-
 @Serializable
 data class AuthenticationResponse(
     val User: UserDto,

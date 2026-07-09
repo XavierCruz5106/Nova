@@ -1,6 +1,7 @@
 package com.example.nova.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -53,6 +54,16 @@ class MediaItemAdapter(
 
             itemView.setOnClickListener { onItemClick(item) }
             badgeContainer.setOnClickListener { onRequestClick(item) }
+
+            // Handle focus for Fire TV D-pad navigation
+            itemView.setOnFocusChangeListener { v, hasFocus ->
+                val focusBorder = itemView.findViewById<View>(R.id.focus_border)
+                focusBorder.visibility = if (hasFocus) View.VISIBLE else View.GONE
+            }
+
+            // Set focusable for D-pad navigation
+            itemView.isFocusable = true
+            itemView.isClickable = true
         }
     }
 

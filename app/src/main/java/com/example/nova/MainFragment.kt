@@ -53,6 +53,9 @@ class MainFragment : Fragment() {
         // Set up RecyclerView
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            setHasFixedSize(false)
+            // Disable scroll animation for TV
+            itemAnimator?.changeDuration = 0
         }
 
         // Set up search

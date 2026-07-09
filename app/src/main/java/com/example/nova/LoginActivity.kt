@@ -6,12 +6,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.nova.data.JellyfinRepository
 import kotlinx.coroutines.launch
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : FragmentActivity() {
 
     private lateinit var serverUrlInput: EditText
     private lateinit var usernameInput: EditText
@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.login_progress)
 
         // Set default server URL
-        serverUrlInput.setText("http://192.168.1.7:8096")
+        serverUrlInput.setText("http://10.0.2.2:8096")
 
         loginButton.setOnClickListener {
             handleLogin()

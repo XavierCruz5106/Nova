@@ -7,14 +7,23 @@
     <FrameLayout
         android:layout_width="130dp"
         android:layout_height="185dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:foreground="?attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/poster_image"
             android:layout_width="130dp"
             android:layout_height="185dp"
             android:scaleType="centerCrop"
-            android:background="@color/cardview_dark_background" />
+            android:background="@android:color/darker_gray" />
+
+        <!-- Focus border - shown when card is focused -->
+        <View
+            android:id="@+id/focus_border"
+            android:layout_width="130dp"
+            android:layout_height="185dp"
+            android:background="@drawable/focus_border"
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/badge_container"
